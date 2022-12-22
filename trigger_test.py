@@ -1,20 +1,21 @@
-from saleae import automation
+#from saleae import automation
 import os
 import os.path
 from datetime import datetime
+from saleae.automation import *
 
 # Connect to the running Logic 2 Application on port `10430`.
 # Alternatively you can use automation.Manager.launch() to launch a new Logic 2 process - see
 # the API documentation for more details.
 # Using the `with` statement will automatically call manager.close() when exiting the scope. If you
 # want to use `automation.Manager` outside of a `with` block, you will need to call `manager.close()` manually.
-with automation.Manager.connect(port=10430) as manager:
+with Manager.connect(port=10430) as manager:
 
     # Configure the capturing device to record on digital channels 0, 1, 2, and 3,
     # with a sampling rate of 10 MSa/s, and a logic level of 3.3V.
     # The settings chosen here will depend on your device's capabilities and what
     # you can configure in the Logic 2 UI.
-    device_configuration = automation.LogicDeviceConfiguration(
+    device_configuration = LogicDeviceConfiguration(
     #    enabled_digital_channels=[0, 1, 2, 3],
         enabled_digital_channels=[1, 4, 7],
         digital_sample_rate=16_000_000,
@@ -22,10 +23,10 @@ with automation.Manager.connect(port=10430) as manager:
     )
 
     # Record 5 seconds of data before stopping the capture
-    capture_configuration = automation.CaptureConfiguration(
+    capture_configuration = CaptureConfiguration(
         # capture_mode=automation.TimedCaptureMode(duration_seconds=5.0)
-        capture_mode=automation.DigitalTriggerCaptureMode(
-            trigger_type=FALLING,
+        capture_mode=DigitalTriggerCaptureMode(
+            trigger_type=DigitalTriggerType.FALLING,
             trigger_channel_index=4,
             trim_data_seconds=10.0,
             after_trigger_seconds=10.0,
