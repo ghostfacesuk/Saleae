@@ -16,14 +16,22 @@ with automation.Manager.connect(port=10430) as manager:
     # you can configure in the Logic 2 UI.
     device_configuration = automation.LogicDeviceConfiguration(
     #    enabled_digital_channels=[0, 1, 2, 3],
-        enabled_digital_channels=[0, 7],
+        enabled_digital_channels=[1, 4, 7],
         digital_sample_rate=16_000_000,
     #    digital_threshold_volts=1.0,
     )
 
     # Record 5 seconds of data before stopping the capture
     capture_configuration = automation.CaptureConfiguration(
-        capture_mode=automation.TimedCaptureMode(duration_seconds=5.0)
+        # capture_mode=automation.TimedCaptureMode(duration_seconds=5.0)
+        capture_mode=automation.DigitalTriggerCaptureMode(
+            trigger_type=Trigger.Negedge,
+            trigger_channel_index=4,
+            trim_data_seconds=10.0,
+            after_trigger_seconds=10.0,
+            min_pulse_width_seconds=None,
+            max_pulse_width_seconds=None,
+            )
     )
 
     # Start a capture - the capture will be automatically closed when leaving the `with` block
