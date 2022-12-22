@@ -25,7 +25,7 @@ with automation.Manager.connect(port=10430) as manager:
     capture_configuration = automation.CaptureConfiguration(
         # capture_mode=automation.TimedCaptureMode(duration_seconds=5.0)
         capture_mode=automation.DigitalTriggerCaptureMode(
-            trigger_type=Trigger.Negedge,
+            trigger_type=FALLING,
             trigger_channel_index=4,
             trim_data_seconds=10.0,
             after_trigger_seconds=10.0,
