@@ -17,7 +17,7 @@ with Manager.connect(port=10430) as manager:
     ## you can configure in the Logic 2 UI.
     device_configuration = LogicDeviceConfiguration(
     #    enabled_digital_channels=[0, 1, 2, 3],
-        enabled_digital_channels=[1, 4, 7],
+        enabled_digital_channels=[0, 4, 6],
         digital_sample_rate=16_000_000,
     #    digital_threshold_volts=1.0,
     )
